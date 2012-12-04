@@ -1,0 +1,29 @@
+@(recordForm: Form[Record])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Start recording</h1>
+    
+    @form(routes.RecordController.start()) {
+
+        <fieldset>
+            @select(
+                recordForm("category.id"), 
+                options(Category.options), 
+                '_label -> "Category", '_default -> "-- Choose a category --"
+            )
+            @inputText(recordForm("item"), '_label -> "Item")
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Start" class="btn primary"> or 
+            <a href="@routes.RecordController.list()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}

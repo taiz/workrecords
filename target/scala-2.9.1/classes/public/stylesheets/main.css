@@ -1,0 +1,86 @@
+html {
+    background: #eee;
+}
+
+header h1 {
+    padding: 0.4em 1.1em;
+    color: white;
+    font-weight: normal;
+    font-size: 24px;
+}
+
+section#main {
+    position: relative;
+    padding: 5em 2em;
+    border-bottom: 1px solid #ccc;
+    min-height: 600px;
+} 
+
+section#main .topRight {
+    position: absolute;
+    right: 20px;
+    top: 70px;
+}
+
+table.records em {
+    color: #aaa;
+}
+
+table.records .record:nth-child(odd) {
+	background-color: #FFFFFF;
+}
+
+table.records .record:nth-child(even) {
+	background-color: #F8F8FF;
+}
+
+table.records thead {
+	background-color: #4169E1;
+	color: #FFFFFF;
+}
+
+table.records .start, table.records .end {
+    width: 15%;
+    min-width: 100px;
+}
+
+table.records .time {
+    width: 10%;
+    min-width: 100px;
+}
+
+table.records .category {
+    width: 20%;
+    min-width: 300px;
+}
+
+table.records .item {
+    width: 40%;
+    min-width: 300px;
+}
+
+table.records .operation {
+    width: 15%;
+    min-width: 100px;
+}
+
+#actions {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+#pagination {
+    position: relative;
+}
+
+#pagination ul {
+    position: absolute;
+    right: 0;
+}
+
+#pagination ul .current a {
+    color: #666;
+}
+
+
+

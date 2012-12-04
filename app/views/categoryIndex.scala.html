@@ -1,0 +1,28 @@
+@(categories: List[Category])
+
+@import helper._
+
+@categoryMain("Category List") {
+    <h1>@categories.size() item(s)</h1>
+    <table>
+    	<tr>
+	    	<th>category</th>
+    		<th></th>
+    	</tr>
+	    @for(category <- categories) {
+	    <tr>
+	    	<td>
+	    		@category.name
+	    	</td>
+	    	<td>
+	    		@form(routes.CategoryController.delete(category.id)) {
+	    			<input type="submit" value="delete">
+	    		}
+	    	</td>
+	    </tr>
+	    }
+    </table>
+    <div>
+    	<a href="@routes.CategoryController._new()">New</a> 
+    </div>
+}

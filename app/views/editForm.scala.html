@@ -1,0 +1,34 @@
+@(id: Long, recordForm: Form[Record])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Edit Record</h1>
+    
+    @form(routes.RecordController.update(id)) {
+
+        <fieldset>
+        	@inputDate(recordForm("startTime"), '_label -> "Start Time")
+        	@inputDate(recordForm("endTime"), '_label -> "End Time")
+            @select(
+                recordForm("category.id"), 
+                options(Category.options), 
+                '_label -> "Category", '_default -> "-- Choose a category --"
+            )
+            @inputText(recordForm("item"), '_label -> "Item")
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Save record" class="btn primary"> or 
+            <a href="@routes.RecordController.list()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+    @form(routes.RecordController.delete(id), 'class -> "topRight") {
+        <input type="submit" value="Delete this record" class="btn danger">
+    }
+}

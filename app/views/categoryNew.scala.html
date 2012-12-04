@@ -1,0 +1,13 @@
+@(cateForm: Form[Category])
+
+@import helper._
+
+@categoryMain("Category List") {
+    <h1>Add new item</h1>
+    <div id="actions">
+   		@form(routes.CategoryController.create()) {
+   			@inputText(cateForm("name"))
+   			<input type="submit" value="add">
+   		}
+    </div>
+}

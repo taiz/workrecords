@@ -1,0 +1,31 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.RecordController.index()
+
+# Record list (look at the default values for pagination parameters)
+GET     /records                    controllers.RecordController.list(p:Int ?= 0, s ?= "id", o ?= "asc")
+
+# Add record
+GET     /records/new                controllers.RecordController.create()
+POST    /records                    controllers.RecordController.start()
+POST    /records/:id                controllers.RecordController.stop(id:Long)
+
+# Edit record
+GET     /records/:id                controllers.RecordController.edit(id:Long)
+POST    /records/:id/update         controllers.RecordController.update(id:Long)
+
+# Delete a record
+POST    /records/:id/delete         controllers.RecordController.delete(id:Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+#-------------------------------------------------------------------------------
+
+GET		/categories					controllers.CategoryController.index()
+GET		/categories/new				controllers.CategoryController._new()
+POST	/categories/save			controllers.CategoryController.create()
+POST    /categories/:id/delete     	controllers.CategoryController.delete(id: Long)

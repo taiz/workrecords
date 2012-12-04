@@ -1,0 +1,109 @@
+@(currentPage: Page[Record], currentSortBy: String, currentOrder: String)
+
+@import helper._
+
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    
+    // Generate the link
+    routes.RecordController.list(newPage, sortBy, order)
+    
+}
+
+@main {
+   	<div id="actions">
+   		<a class="btn success" id="add" href="@routes.RecordController.create()">Add a new record</a>
+   	</div>
+
+	<table class="records">
+		<thead>
+			<tr class="header">
+				<th class="start">Start</th>
+				<th class="end">End</th>
+				<th class="time">Time</th>
+				<th class="category">Category</th>
+				<th class="item">Item</th>
+				<th class="operation"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@for(record <- currentPage.getList) {
+			<tr class="record">
+				<td>
+					@record.startTime.format("yyyy-MM-dd hh:mm")
+				</td>
+				<td>
+				 	@if(record.endTime == null) {
+                		<em>-</em>
+	                } else {
+	                    @record.endTime.format("yyyy-MM-dd hh:mm")
+	                }
+				</td>
+				<td>
+					@if(record.endTime == null) {
+                		<em>-</em>
+	                } else {
+	                    @record.elapseTime (min)
+	                }
+				</td>
+				<td>
+					@record.category.name
+				</td>
+				<td>
+					@record.item
+				</td>
+				<td>
+					@if(record.endTime == null) {
+						@form(routes.RecordController.stop(record.id)) {
+		    				<input class="btn primary" type="submit" value="stop">
+		    			}
+		    		} else {
+        				<a href="@routes.RecordController.edit(record.id)">Edit</a><br />
+		    		}
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+
+    <div id="pagination" class="pagination">
+        <ul>
+            @if(currentPage.hasPrev) {
+                <li class="prev">
+                    <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                </li>
+            } else {
+                <li class="prev disabled">
+                    <a>&larr; Previous</a>
+                </li>
+            }
+            <li class="current">
+                <a>Displaying @currentPage.getDisplayXtoYofZ(" to "," of ")</a>
+            </li>
+            @if(currentPage.hasNext) {
+                <li class="next">
+                    <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                </li>
+            } else {
+                <li class="next disabled">
+                    <a>Next &rarr;</a>
+                </li>
+            }
+        </ul>
+    </div>
+}
